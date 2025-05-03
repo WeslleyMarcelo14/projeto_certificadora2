@@ -1,29 +1,31 @@
-# 📘 Projeto - Certificadora de Competência 2 (EC46H)
+# 🎓 Projeto - Certificadora de Competência 2 (EC46H)
 
-Este repositório contém o projeto desenvolvido para a disciplina **Certificadora de Competência 2 - EC46H**, ministrada pela professora **Flávia Belintani Blum Haddad** na UTFPR.
+Repositório do projeto desenvolvido para a disciplina **Certificadora de Competência 2 - EC46H**, ministrada pela professora **Flávia Belintani Blum Haddad** na UTFPR.
 
-## 🎯 Descrição
+## 🛠️ Descrição
 
-O projeto tem como base o sistema **Ninho de Pardais**, desenvolvido originalmente na UTFPR. A proposta consiste em reestruturar e aprimorar o projeto utilizando **React** como framework principal, aplicando conceitos de boas práticas em desenvolvimento web.
+O projeto tem como base o sistema **Ninho de Pardais**, também da UTFPR, e foi reestruturado com foco em usabilidade, identidade visual e boas práticas de desenvolvimento utilizando **React**.
 
-A identidade visual foi definida com uma paleta de cores consistente, baseada nas seguintes cores:
+## 🎨 Paleta de Cores Utilizada
 
-| Cor        | Hex      | Aplicação                      |
-|------------|----------|--------------------------------|
-| Amarelo    | `#F2C94C`| Destaques e elementos primários |
-| Preto      | `#1C1C1C`| Textos e detalhes               |
-| Branco     | `#FFFFFF`| Fundo principal                 |
-| Cinza claro| `#F5F5F5`| Linhas e elementos de apoio     |
+A identidade visual do projeto foi cuidadosamente definida para garantir clareza e contraste:
 
-## 🧑‍💻 Integrantes
+| Cor         | Hex      | Aplicação principal                             |
+|-------------|----------|--------------------------------------------------|
+| **Preto**   | `#1C1C1C`| Cor base da interface, plano de fundo principal |
+| **Amarelo** | `#F2C94C`| Destaques como navbar e elementos de interação  |
+| **Branco**  | `#FFFFFF`| Textos principais para garantir legibilidade     |
+| **Cinza**   | `#F5F5F5`| Linhas, divisores e elementos de apoio           |
+
+## 👥 Membros do Grupo
 
 - [Allan Santos](https://github.com/alllanvfs)  
 - [Tiago Souza](https://github.com/tiagomsouzac)  
 - [Henry Ossamu](https://github.com/HenryCIX)  
-- [Weslley Marcelo](https://github.com/WeslleyMarcelo14)  
+- [Weslley Marcelo](https://github.com/WeslleyMarcelo14)
 
-## 🛠️ Tecnologias Utilizadas
+## 🚀 Tecnologias
 
-- [React](https://reactjs.org/)
+- **React**
 - HTML5 + CSS3
 - JavaScript (ES6+)
