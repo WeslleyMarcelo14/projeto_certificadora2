@@ -11,19 +11,17 @@ export default function RootLayout({
       <body className={'antialiased'}>
         <nav className="navbar">
           <div className="navbar-container">
-            <div className="navbar-logo">Ninho de Pardais</div>
+            <div className="navbar-logo"> <a href="/">Ninho de Pardais </a> </div>
             <ul className="navbar-menu">
-              <li><a href="/">Principal</a></li>
-              <li><a href="#">Histórico</a></li>
-              <li><a href="/Motor">Tabela</a></li>
-              <li><a href="https://github.com/WeslleyMarcelo14/projeto_certificadora2">Projeto</a></li>
+              <li><b><a href="#">Histórico</a></b></li>
+              <li><b><a href="/Motor">Tabela</a></b></li>
+              <li><b><a href="https://github.com/WeslleyMarcelo14/projeto_certificadora2">Projeto</a></b></li>
             </ul>
           </div>
         </nav>
         {children}
         <footer>
-          <p>Projeto desenvolvido para a disciplina Certificadora de Competência 2 - EC46H</p>
-          <a href="https://github.com/WeslleyMarcelo14/projeto_certificadora2">GitHub</a>
+          <a href="https://github.com/WeslleyMarcelo14/projeto_certificadora2">Projeto desenvolvido para a disciplina Certificadora de Competência 2 - EC46H</a>
         </footer>
       </body>
     </html>
