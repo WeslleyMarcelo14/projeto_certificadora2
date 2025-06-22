@@ -1,34 +1,70 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import './style.css';
+import { useState, useEffect, useMemo } from 'react';
+import { db, firestore } from '../../firebase/configBD';
+import { ref, onValue } from 'firebase/database';
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp } from 'firebase/firestore';
 
 const Motor = () => {
-    const [data, setData] = useState([]);
+    const [savedData, setSavedData] = useState([]);
     const [formData, setFormData] = useState({
-        id: null,
         rpm: '',
-        velocidade: '',
-        tensao: '',
+        corrente: '',
+        temperatura: '',
     });
+
     const [isEditing, setIsEditing] = useState(false);
+    const [editingId, setEditingId] = useState(null);
+    const [sortConfig, setSortConfig] = useState({ key: 'createdAt', direction: 'descending' });
 
     useEffect(() => {
-        const storedData = localStorage.getItem('motorData');
-        if (storedData) {
-            setData(JSON.parse(storedData));
-        } else {
-            setData([
-                { id: 1, rpm: 1500, velocidade: 2000, tensao: 12.5 },
-                { id: 2, rpm: 2000, velocidade: 100, tensao: 13.2 },
-                { id: 3, rpm: 1800, velocidade: 90, tensao: 12.8 },
-            ]);
-        }
+        const motorRef = ref(db, 'Motor');
+        const unsubscribe = onValue(motorRef, (snapshot) => {
+            const liveData = snapshot.val();
+            if (liveData && !isEditing) {
+                setFormData({
+                    rpm: liveData.RPM,
+                    corrente: liveData.Corrente,
+                    temperatura: liveData.Temperatura
+                });
+            }
+        });
+        return () => unsubscribe();
+    }, [isEditing]);
+
+    const fetchSavedData = async () => {
+        const motorCollection = collection(firestore, 'Motor');
+        const motorSnapshot = await getDocs(motorCollection);
+        const motorList = motorSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        setSavedData(motorList);
+    };
+
+    useEffect(() => {
+        fetchSavedData();
     }, []);
 
-    useEffect(() => {
-        localStorage.setItem('motorData', JSON.stringify(data));
-    }, [data]);
+    const sortedItems = useMemo(() => {
+        let sortableItems = [...savedData];
+        if (sortConfig.key !== null) {
+            sortableItems.sort((a, b) => {
+                const valA = a[sortConfig.key];
+                const valB = b[sortConfig.key];
+
+                if (valA === null || valA === undefined) return 1;
+                if (valB === null || valB === undefined) return -1;
+                
+                if (valA < valB) {
+                    return sortConfig.direction === 'ascending' ? -1 : 1;
+                }
+                if (valA > valB) {
+                    return sortConfig.direction === 'ascending' ? 1 : -1;
+                }
+                return 0;
+            });
+        }
+        return sortableItems;
+    }, [savedData, sortConfig]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -38,49 +74,58 @@ const Motor = () => {
         });
     };
 
-    const handleAdd = () => {
-        setIsEditing(false);
-        setFormData({ id: null, rpm: '', velocidade: '', tensao: '' });
+    const handleSave = async () => {
+        if (isEditing) {
+            const motorDoc = doc(firestore, 'Motor', editingId);
+            await updateDoc(motorDoc, {
+                rpm: Number(formData.rpm),
+                corrente: Number(formData.corrente),
+                temperatura: Number(formData.temperatura),
+            });
+        } else {
+            await addDoc(collection(firestore, 'Motor'), {
+                rpm: Number(formData.rpm),
+                corrente: Number(formData.corrente),
+                temperatura: Number(formData.temperatura),
+                createdAt: Timestamp.fromDate(new Date()),
+            });
+        }
+        fetchSavedData();
     };
-
+    
     const handleEdit = (item) => {
         setIsEditing(true);
-        setFormData({ 
-            ...item,
-            rpm: item.rpm.toString(),
-            velocidade: item.velocidade.toString(),
-            tensao: item.tensao.toString()
+        setEditingId(item.id);
+        setFormData({
+            rpm: item.rpm,
+            corrente: item.corrente,
+            temperatura: item.temperatura,
         });
     };
 
-    const handleSave = () => {
-        const newData = {
-            id: formData.id,
-            rpm: Number(formData.rpm),
-            velocidade: Number(formData.velocidade),
-            tensao: Number(formData.tensao)
-        };
-
-        if (isEditing) {
-            setData(data.map(item => item.id === newData.id ? newData : item));
-        } else {
-            const ids = data.map(item => item.id);
-            const newId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
-            setData([...data, { ...newData, id: newId }]);
-        }
-
-        setFormData({ id: null, rpm: '', velocidade: '', tensao: '' });
+    const handleCancelEdit = () => {
         setIsEditing(false);
+        setEditingId(null);
+        setFormData({ rpm: '', corrente: '', temperatura: '' }); 
     };
 
-    const handleDelete = (id) => {
-        setData(data.filter(item => item.id !== id));
+    const handleDelete = async (id) => {
+        const motorDoc = doc(firestore, 'Motor', id);
+        await deleteDoc(motorDoc);
+        fetchSavedData();
+    };
+
+    const requestSort = (key) => {
+        let direction = 'ascending';
+        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+            direction = 'descending';
+        }
+        setSortConfig({ key, direction });
     };
 
     return (
         <div>
             <div className="divTabela">
-                
                 <div className="box">
                     <p className="titulo">DADOS DO MOTOR</p>
                     <div className="input-box">
@@ -90,33 +135,36 @@ const Motor = () => {
                             name='rpm'
                             value={formData.rpm}
                             onChange={handleInputChange}
+                            readOnly={!isEditing}
                         />
                     </div>
                     <div className="input-box">
-                        <label>Velocidade (km/h)</label>
+                        <label>Corrente (A)</label>
                         <input
                             type="number"
-                            name="velocidade"
-                            value={formData.velocidade}
+                            name="corrente"
+                            value={formData.corrente}
                             onChange={handleInputChange}
+                            readOnly={!isEditing}
                         />
                     </div>
                     <div className="input-box">
-                        <label>Tensão (V)</label>
+                        <label>Temperatura (°C)</label>
                         <input
                             type="number"
-                            name="tensao"
+                            name="temperatura"
                             step="0.1"
-                            value={formData.tensao}
+                            value={formData.temperatura}
                             onChange={handleInputChange}
+                            readOnly={!isEditing}
                         />
                     </div>
                     <div className="divButton">
                         <button onClick={handleSave}>
-                            {isEditing ? 'Atualizar' : 'Salvar'}
+                            {isEditing ? 'Atualizar Registro' : 'Salvar Leitura Atual'}
                         </button>
                         {isEditing && (
-                            <button onClick={handleAdd}>Cancelar</button>
+                            <button onClick={handleCancelEdit}>Cancelar Edição</button>
                         )}
                     </div>
                 </div>
@@ -124,20 +172,34 @@ const Motor = () => {
                 <table className="tabelaDados">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>RPM</th>
-                            <th>Velocidade (km/h)</th>
-                            <th>Tensão (V)</th>
+                            <th onClick={() => requestSort('createdAt')} style={{cursor: 'pointer'}}>
+                                Data da Leitura
+                                {sortConfig.key === 'createdAt' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                            </th>
+                            <th onClick={() => requestSort('rpm')} style={{cursor: 'pointer'}}>
+                                RPM
+                                {sortConfig.key === 'rpm' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                            </th>
+                            <th onClick={() => requestSort('corrente')} style={{cursor: 'pointer'}}>
+                                Corrente (A)
+                                {sortConfig.key === 'corrente' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                            </th>
+                            <th onClick={() => requestSort('temperatura')} style={{cursor: 'pointer'}}>
+                                Temperatura (°C)
+                                {sortConfig.key === 'temperatura' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                            </th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item) => (
+                        {sortedItems.map((item) => (
                             <tr key={item.id}>
-                                <td>{item.id}</td>
+                                <td>
+                                    {item.createdAt ? item.createdAt.toDate().toLocaleString('pt-BR') : 'N/D'}
+                                </td>
                                 <td>{item.rpm}</td>
-                                <td>{item.velocidade}</td>
-                                <td>{item.tensao}</td>
+                                <td>{item.corrente}</td>
+                                <td>{item.temperatura}</td>
                                 <td>
                                     <button onClick={() => handleEdit(item)}>Editar</button>
                                     <button onClick={() => handleDelete(item.id)}>Excluir</button>
