@@ -1,19 +1,15 @@
-import "./globals.css";
-import Navigator from "../Components/Navigator";
-import Footer from "@/Components/Footer";
+import type { Metadata } from 'next';
+import './globals.css';
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const metadata: Metadata = {
+  title: 'Ninho de Pardais',
+  
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={'antialiased'}>
-        <Navigator/>
-        {children}
-        <Footer/>
-      </body>
+    <html lang="pt-BR">
+      <body>{children}</body>
     </html>
   );
 }

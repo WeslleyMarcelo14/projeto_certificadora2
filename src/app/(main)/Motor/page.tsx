@@ -2,7 +2,7 @@
 
 import './style.css';
 import { useState, useEffect, useMemo } from 'react';
-import { db, firestore } from '../../firebase/configBD';
+import { db, firestore } from '@/firebase/configBD';
 import { ref, onValue } from 'firebase/database';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp } from 'firebase/firestore';
 
