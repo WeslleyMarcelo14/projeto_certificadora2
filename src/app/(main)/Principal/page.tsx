@@ -17,36 +17,87 @@ const ProjectPage = () => {
       <div className="page-container">
         <main className="content-wrapper">
           <div className="main-container">
-            <h1 className="project-title">O que é o Projeto Ninho de Pardais</h1>
+            <h1 className="project-title">Projeto Ninho de Pardais</h1>
+            
+            <div className="hero-section">
+              <p className="hero-text">
+                Um projeto de extensão universitária que transforma vidas através da educação, cultura e inclusão social.
+              </p>
+            </div>
 
             <div className="image-gallery">
               <img 
                 src="/img/principal_imagem_1.png" 
-                alt="Imagem do Projeto Ninho de Pardais - Atividades" 
+                alt="Crianças participando de atividades educativas no Projeto Ninho de Pardais" 
                 className="project-image" 
               />
               <img 
                 src="/img/principal_imagem_2.png" 
-                alt="Imagem do Projeto Ninho de Pardais - Comunidade" 
+                alt="Comunidade unida nas ações do Projeto Ninho de Pardais" 
                 className="project-image" 
               />
             </div>
 
+            <section className="mission-section">
+              <h2>Nossa Missão</h2>
+              <div className="mission-content">
+                <p>
+                  Promover o acolhimento e desenvolvimento integral de crianças e adolescentes em situação de vulnerabilidade social, através de ações educativas, culturais e de apoio psicossocial.
+                </p>
+              </div>
+            </section>
+
             <section className="about-section">
               <h2>Sobre o Projeto</h2>
               <div className="about-content">
-                <p>
-                  O Ninho de Pardais é um programa de extensão da Universidade Tecnológica Federal do Paraná – Câmpus Cornélio Procópio (UTFPR-CP), voltado ao acolhimento e apoio a crianças e adolescentes em situação de vulnerabilidade social.
-                </p>
-                <p>
-                  O projeto busca integrar ações pedagógicas, culturais e sociais, promovendo o desenvolvimento integral dos participantes por meio de oficinas, atividades lúdicas e educativas, além de acompanhamento psicológico e social.
-                </p>
-                <p>
-                  Coordenado por professores da universidade, com o apoio de estudantes bolsistas e voluntários, o programa visa também fortalecer a relação da UTFPR com a comunidade externa, contribuindo para a formação cidadã e acadêmica dos envolvidos.
-                </p>
-                <p>
-                  Ele reforça o papel social da universidade ao atuar diretamente na promoção da inclusão, da cidadania e do acesso a oportunidades para crianças em contextos de risco.
-                </p>
+                <div className="info-card">
+                  <h3>🏛️ Origem Institucional</h3>
+                  <p>
+                    Programa de extensão da Universidade Tecnológica Federal do Paraná – Câmpus Cornélio Procópio (UTFPR-CP), que conecta conhecimento acadêmico com responsabilidade social.
+                  </p>
+                </div>
+
+                <div className="info-card">
+                  <h3>🎯 Metodologia</h3>
+                  <p>
+                    Integramos ações pedagógicas, culturais e sociais através de oficinas especializadas, atividades lúdicas e educativas, complementadas por acompanhamento psicológico e social personalizado.
+                  </p>
+                </div>
+
+                <div className="info-card">
+                  <h3>👥 Equipe Multidisciplinar</h3>
+                  <p>
+                    Coordenado por professores experientes e apoiado por estudantes bolsistas e voluntários comprometidos, criando um ambiente de aprendizado colaborativo e enriquecedor.
+                  </p>
+                </div>
+
+                <div className="info-card">
+                  <h3>🌱 Impacto Social</h3>
+                  <p>
+                    Fortalecemos a relação entre universidade e comunidade, promovendo inclusão, cidadania e acesso a oportunidades, enquanto contribuímos para a formação integral de todos os envolvidos.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="values-section">
+              <h2>Nossos Valores</h2>
+              <div className="values-grid">
+                <div className="value-item">
+                  <span className="value-icon">📚</span>
+                  <h4>Educação</h4>
+                  <p>Conhecimento transformador</p>
+                </div>
+                <div className="value-item">
+                  <span className="value-icon">🌟</span>
+                  <h4>Esperança</h4>
+                  <p>Futuro mais promissor</p>
+                </div>
+                <div className="value-item">
+                  <span className="value-icon">💪</span>
+                  <h4>Empoderamento</h4>
+                  <p>Autonomia e crescimento</p>
+                </div>
               </div>
             </section>
           </div>
