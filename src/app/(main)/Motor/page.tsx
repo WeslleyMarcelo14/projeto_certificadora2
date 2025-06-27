@@ -5,6 +5,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { db, firestore } from '@/firebase/configBD';
 import { ref, onValue } from 'firebase/database';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp } from 'firebase/firestore';
+import Logo from '@/Components/Logo';
 
 const Motor = () => {
     const [savedData, setSavedData] = useState([]);
@@ -17,6 +18,7 @@ const Motor = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [sortConfig, setSortConfig] = useState({ key: 'createdAt', direction: 'descending' });
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const motorRef = ref(db, 'Motor');
@@ -34,10 +36,20 @@ const Motor = () => {
     }, [isEditing]);
 
     const fetchSavedData = async () => {
-        const motorCollection = collection(firestore, 'Motor');
-        const motorSnapshot = await getDocs(motorCollection);
-        const motorList = motorSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-        setSavedData(motorList);
+        setIsLoading(true);
+        try {
+            const motorCollection = collection(firestore, 'Motor');
+            const motorSnapshot = await getDocs(motorCollection);
+            const motorList = motorSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+            setSavedData(motorList);
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+        } finally {
+            // Adiciona um delay mínimo para evitar flash de "sem dados"
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 800);
+        }
     };
 
     useEffect(() => {
@@ -124,6 +136,7 @@ const Motor = () => {
     };
 
     return (
+        <>
         <div>
             <div className="divTabela">
                 <div className="box">
@@ -169,47 +182,78 @@ const Motor = () => {
                     </div>
                 </div>
 
-                <table className="tabelaDados">
-                    <thead>
-                        <tr>
-                            <th onClick={() => requestSort('createdAt')} style={{cursor: 'pointer'}}>
-                                Data da Leitura
-                                {sortConfig.key === 'createdAt' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
-                            </th>
-                            <th onClick={() => requestSort('rpm')} style={{cursor: 'pointer'}}>
-                                RPM
-                                {sortConfig.key === 'rpm' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
-                            </th>
-                            <th onClick={() => requestSort('corrente')} style={{cursor: 'pointer'}}>
-                                Corrente (A)
-                                {sortConfig.key === 'corrente' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
-                            </th>
-                            <th onClick={() => requestSort('temperatura')} style={{cursor: 'pointer'}}>
-                                Temperatura (°C)
-                                {sortConfig.key === 'temperatura' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
-                            </th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortedItems.map((item) => (
-                            <tr key={item.id}>
-                                <td>
-                                    {item.createdAt ? item.createdAt.toDate().toLocaleString('pt-BR') : 'N/D'}
-                                </td>
-                                <td>{item.rpm}</td>
-                                <td>{item.corrente}</td>
-                                <td>{item.temperatura}</td>
-                                <td>
-                                    <button onClick={() => handleEdit(item)}>Editar</button>
-                                    <button onClick={() => handleDelete(item.id)}>Excluir</button>
-                                </td>
+                {isLoading ? (
+                    <div style={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        padding: '50px',
+                        margin: '20px 0'
+                    }}>
+                        <p style={{ fontSize: '18px', color: '#666', marginBottom: '20px' }}>Carregando dados salvos...</p>
+                        <div style={{ 
+                            width: '40px', 
+                            height: '40px', 
+                            border: '4px solid #f3f3f3', 
+                            borderTop: '4px solid #F2C94C', 
+                            borderRadius: '50%', 
+                            animation: 'spin 1s linear infinite' 
+                        }}></div>
+                    </div>
+                ) : (
+                    <table className="tabelaDados">
+                        <thead>
+                            <tr>
+                                <th onClick={() => requestSort('createdAt')} style={{cursor: 'pointer'}}>
+                                    Data da Leitura
+                                    {sortConfig.key === 'createdAt' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                                </th>
+                                <th onClick={() => requestSort('rpm')} style={{cursor: 'pointer'}}>
+                                    RPM
+                                    {sortConfig.key === 'rpm' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                                </th>
+                                <th onClick={() => requestSort('corrente')} style={{cursor: 'pointer'}}>
+                                    Corrente (A)
+                                    {sortConfig.key === 'corrente' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                                </th>
+                                <th onClick={() => requestSort('temperatura')} style={{cursor: 'pointer'}}>
+                                    Temperatura (°C)
+                                    {sortConfig.key === 'temperatura' && (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼')}
+                                </th>
+                                <th>Ações</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {sortedItems.length === 0 ? (
+                                <tr>
+                                    <td colSpan={5} style={{ textAlign: 'center', padding: '20px', color: '#666' }}>
+                                        Nenhum dado salvo encontrado.
+                                    </td>
+                                </tr>
+                            ) : (
+                                sortedItems.map((item) => (
+                                    <tr key={item.id}>
+                                        <td>
+                                            {item.createdAt ? item.createdAt.toDate().toLocaleString('pt-BR') : 'N/D'}
+                                        </td>
+                                        <td>{item.rpm}</td>
+                                        <td>{item.corrente}</td>
+                                        <td>{item.temperatura}</td>
+                                        <td>
+                                            <button onClick={() => handleEdit(item)}>Editar</button>
+                                            <button onClick={() => handleDelete(item.id)}>Excluir</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
+        
+        <Logo />
+        </>
     );
 };
 

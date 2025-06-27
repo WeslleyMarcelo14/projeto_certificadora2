@@ -4,6 +4,7 @@ import './style.css';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Logo from '@/Components/Logo';
 // 1. Importe o 'auth' do seu arquivo de configuração e a função de login
 import { auth } from '@/firebase/configBD';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -94,13 +95,7 @@ const LoginScreen = () => {
           </form>
         </main>
 
-        <img
-          src="/img/logo_png.png"
-          alt="Logo Ninho de Pardais"
-          className="logo-bottom-right"
-          width={100}
-          height={100}
-        />
+        <Logo />
       </div>
     </>
   );

@@ -1,7 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Home(){
-  return(
-    <div>
-      <h1>Ai zé da Manga</h1>
-    </div>
-  )
+  redirect("/Login");
 }
