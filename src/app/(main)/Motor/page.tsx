@@ -8,7 +8,7 @@ import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp } fro
 import Logo from '@/Components/Logo';
 
 const Motor = () => {
-    const [savedData, setSavedData] = useState([]);
+    const [savedData, setSavedData] = useState<any[]>([]);
     const [formData, setFormData] = useState({
         rpm: '',
         corrente: '',
@@ -16,7 +16,7 @@ const Motor = () => {
     });
 
     const [isEditing, setIsEditing] = useState(false);
-    const [editingId, setEditingId] = useState(null);
+    const [editingId, setEditingId] = useState<string | null>(null);
     const [sortConfig, setSortConfig] = useState({ key: 'createdAt', direction: 'descending' });
     const [isLoading, setIsLoading] = useState(true);
 
@@ -45,7 +45,6 @@ const Motor = () => {
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
         } finally {
-            // Adiciona um delay mínimo para evitar flash de "sem dados"
             setTimeout(() => {
                 setIsLoading(false);
             }, 800);
@@ -78,7 +77,7 @@ const Motor = () => {
         return sortableItems;
     }, [savedData, sortConfig]);
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -87,7 +86,7 @@ const Motor = () => {
     };
 
     const handleSave = async () => {
-        if (isEditing) {
+        if (isEditing && editingId) {
             const motorDoc = doc(firestore, 'Motor', editingId);
             await updateDoc(motorDoc, {
                 rpm: Number(formData.rpm),
@@ -105,7 +104,7 @@ const Motor = () => {
         fetchSavedData();
     };
     
-    const handleEdit = (item) => {
+    const handleEdit = (item: any) => {
         setIsEditing(true);
         setEditingId(item.id);
         setFormData({
@@ -121,13 +120,13 @@ const Motor = () => {
         setFormData({ rpm: '', corrente: '', temperatura: '' }); 
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id: string) => {
         const motorDoc = doc(firestore, 'Motor', id);
         await deleteDoc(motorDoc);
         fetchSavedData();
     };
 
-    const requestSort = (key) => {
+    const requestSort = (key: string) => {
         let direction = 'ascending';
         if (sortConfig.key === key && sortConfig.direction === 'ascending') {
             direction = 'descending';

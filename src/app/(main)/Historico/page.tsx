@@ -20,7 +20,7 @@ const formatarData = (createdAt: any, fallback: string) => {
 };
 
 const Historico = () => {
-  const [savedData, setSavedData] = useState([]);
+  const [savedData, setSavedData] = useState<any[]>([]);
   const [showRPM, setShowRPM] = useState(true);
   const [showCorrente, setShowCorrente] = useState(true);
   const [showTemperatura, setShowTemperatura] = useState(true);
@@ -36,7 +36,6 @@ const Historico = () => {
     } catch (error) {
       console.error('Erro ao buscar dados:', error);
     } finally {
-      // Adiciona um delay mínimo para evitar flash de "sem dados"
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);

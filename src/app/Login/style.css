@@ -31,7 +31,6 @@
         .loginScreen-formBox {
           background: rgba(255, 255, 255, 0.95);
           backdrop-filter: blur(15px);
-          -webkit-backdrop-filter: blur(15px);
           padding: 40px 45px;
           border: 2px solid rgba(242, 201, 76, 0.3);
           border-radius: 20px;
@@ -166,77 +165,3 @@
           z-index: 1000;
         }
 
-        /* Responsividade moderna - Login */
-@media (max-width: 768px) {
-    .loginScreen-container {
-        padding: 20px 15px;
-    }
-    
-    .loginScreen-formBox {
-        padding: 30px 35px;
-        border-radius: 15px;
-        max-width: 400px;
-    }
-    
-    .loginScreen-formTitle {
-        font-size: 24px;
-        margin-bottom: 30px;
-    }
-    
-    .loginScreen-label {
-        max-width: 100%;
-        font-size: 15px;
-    }
-    
-    .loginScreen-input {
-        max-width: 100%;
-        padding: 14px 16px;
-        font-size: 15px;
-    }
-    
-    .loginScreen-submitButton {
-        padding: 14px 35px;
-        font-size: 15px;
-        min-width: 180px;
-    }
-}
-
-@media (max-width: 480px) {
-    .loginScreen-container {
-        padding: 15px 10px;
-    }
-    
-    .loginScreen-formBox {
-        padding: 25px 30px;
-        border-radius: 12px;
-        max-width: 350px;
-    }
-    
-    .loginScreen-formTitle {
-        font-size: 22px;
-        letter-spacing: 0.5px;
-        margin-bottom: 25px;
-    }
-    
-    .loginScreen-formGroup {
-        margin-bottom: 20px;
-    }
-    
-    .loginScreen-label {
-        font-size: 14px;
-        margin-bottom: 8px;
-    }
-    
-    .loginScreen-input {
-        padding: 12px 14px;
-        font-size: 14px;
-        border-radius: 8px;
-    }
-    
-    .loginScreen-submitButton {
-        padding: 12px 30px;
-        font-size: 14px;
-        min-width: 160px;
-        border-radius: 10px;
-    }
-}

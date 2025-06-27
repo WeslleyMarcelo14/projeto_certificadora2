@@ -4,11 +4,8 @@ body {
   background-color: #1C1C1C;
 }
 
-/* Footer Styles */
 footer {
     background: rgba(28, 28, 28, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border-top: 1px solid rgba(242, 201, 76, 0.2);
     color: #F2C94C;
     text-align: center;
@@ -37,19 +34,8 @@ footer {
     font-size: 12px;
 }
 
-/* Responsividade do footer */
-@media (max-width: 768px) {
-    .footer-content {
-        padding: 0 10px;
-    }
-    
-    .footer-text {
-        font-size: 11px;
-        text-align: center;
-    }
-}
 
-/* Global Link Styles */
+
 a:link {
     color: #1C1C1C;
     text-decoration: none;
@@ -67,7 +53,6 @@ a:active {
     color: #FFFFFF;
 }
 
-/* Logo Positioning */
 .logo-bottom-right {
     position: fixed;
     bottom: 20px;

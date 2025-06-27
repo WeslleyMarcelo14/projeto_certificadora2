@@ -18,7 +18,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     }
   }, [isAuthenticated, loading, router]);
 
-  // Mostrar loading enquanto verifica autenticação
   if (loading) {
     return (
       <div style={{ 
@@ -32,7 +31,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     );
   }
 
-  // Se não estiver autenticado, não renderizar nada (será redirecionado)
   if (!isAuthenticated) {
     return null;
   }

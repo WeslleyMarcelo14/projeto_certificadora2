@@ -1,10 +1,6 @@
-/* Navigator Component Styles */
-/* Aplicando CSS Modules para melhor encapsulamento e manutenção */
-
 .navbar {
   background: rgba(28, 28, 28, 0.85);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(242, 201, 76, 0.2);
   position: sticky;
   top: 0;
@@ -14,9 +10,9 @@
 }
 
 .navbarContainer {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
@@ -78,7 +74,6 @@
   display: flex;
   gap: 6px;
   align-items: center;
-  justify-self: end;
   flex-shrink: 0;
 }
 
@@ -216,9 +211,7 @@
   align-items: center;
 }
 
-/* User Greeting Section - Centralizado usando grid */
 .userGreetingSection {
-  justify-self: center;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -252,116 +245,8 @@
   white-space: nowrap;
 }
 
-/* Responsividade para tablets */
-@media (max-width: 768px) {
-  .navbarContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 12px 18px;
-    min-height: auto;
-  }
-  
-  .navbarBrand {
-    gap: 8px;
-    order: 1;
-  }
-  
-  .brandIcon {
-    font-size: 26px;
-  }
-  
-  .brandTitle {
-    font-size: 16px;
-  }
-  
-  .brandSubtitle {
-    font-size: 8px;
-  }
 
-  .userGreetingSection {
-    order: 2;
-    margin: 6px 0;
-    align-self: center;
-    padding: 5px 14px;
-  }
 
-  .greetingText {
-    font-size: 12px;
-  }
-
-  .userName {
-    font-size: 12px;
-    max-width: 120px;
-  }
-  
-  .navbarNavigation {
-    order: 3;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 4px;
-    justify-self: center;
-  }
-  
-  .navButton {
-    padding: 5px 10px;
-    min-width: 45px;
-  }
-  
-  .navIcon {
-    font-size: 12px;
-  }
-  
-  .navText {
-    font-size: 7px;
-  }
-}
-
-/* Responsividade para mobile */
-@media (max-width: 480px) {
-  .navbarContainer {
-    gap: 8px;
-    padding: 10px 16px;
-  }
-
-  .userGreetingSection {
-    margin: 4px 0;
-    gap: 4px;
-    padding: 4px 12px;
-  }
-
-  .greetingText {
-    font-size: 10px;
-  }
-
-  .userName {
-    font-size: 10px;
-    max-width: 100px;
-  }
-
-  .navbarNavigation {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    width: 100%;
-    justify-self: center;
-  }
-  
-  .navButton {
-    min-width: unset;
-    padding: 4px 6px;
-  }
-  
-  .navIcon {
-    font-size: 11px;
-  }
-  
-  .navText {
-    font-size: 6px;
-  }
-}
-
-/* Animações e transições aprimoradas */
 .navButton {
   position: relative;
   overflow: hidden;
@@ -377,17 +262,4 @@
   transition-duration: 0.1s;
 }
 
-/* Melhorias de acessibilidade */
-@media (prefers-reduced-motion: reduce) {
-  .brandIcon {
-    animation: none;
-  }
-  
-  .navButton {
-    transition: none;
-  }
-  
-  .navButton::before {
-    transition: none;
-  }
-}
+

@@ -52,7 +52,6 @@ body {
 .divTabela {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
     border: 2px solid rgba(242, 201, 76, 0.3);
     border-radius: 20px;
     padding: 25px 30px;
@@ -121,131 +120,7 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Responsividade moderna - Histórico */
-@media (max-width: 1024px) {
-    .divTabela {
-        margin-left: 2%;
-        margin-right: 2%;
-        padding: 20px 25px;
-    }
-    
-    .box {
-        min-height: 600px;
-        padding: 18px;
-    }
-    
-    .chart-container {
-        padding: 15px;
-    }
-    
-    .chart-controls {
-        padding: 15px;
-    }
-    
-    .chart-controls label {
-        margin: 0 10px 8px 0;
-        padding: 6px 12px;
-        font-size: 13px;
-    }
-}
 
-@media (max-width: 768px) {
-    .content-wrapper {
-        padding: 10px 15px;
-        margin-top: 10px;
-        margin-bottom: 60px;
-    }
-    
-    .divTabela {
-        margin-left: 1%;
-        margin-right: 1%;
-        padding: 20px 25px;
-        border-radius: 15px;
-    }
-    
-    .titulo {
-        font-size: 18px;
-        margin-bottom: 12px;
-    }
-    
-    .box {
-        min-height: 550px;
-        padding: 15px;
-    }
-    
-    .chart-controls {
-        padding: 12px;
-    }
-    
-    .chart-controls label {
-        margin: 0 8px 6px 0;
-        padding: 5px 10px;
-        font-size: 12px;
-    }
-    
-    .chart-controls input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
-    }
-    
-    .chart-container {
-        padding: 10px;
-        overflow-x: auto;
-    }
-    
-    /* Ajustar tamanho do gráfico em mobile */
-    .recharts-responsive-container {
-        min-width: 800px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .content-wrapper {
-        padding: 15px 10px;
-    }
-    
-    .divTabela {
-        margin-left: 0.5%;
-        margin-right: 0.5%;
-        padding: 20px 25px;
-        border-radius: 12px;
-    }
-    
-    .titulo {
-        font-size: 22px;
-        letter-spacing: 0.5px;
-    }
-    
-    .box {
-        min-height: 500px;
-        padding: 15px;
-    }
-    
-    .chart-controls {
-        padding: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        display: flex;
-    }
-    
-    .chart-controls label {
-        margin: 0 5px 5px 0;
-        padding: 4px 8px;
-        font-size: 11px;
-        flex: 1;
-        min-width: 80px;
-        justify-content: center;
-    }
-    
-    .chart-controls input[type="checkbox"] {
-        width: 14px;
-        height: 14px;
-    }
-    
-    .chart-container {
-        padding: 8px;
-    }
-}
 
 /* Estilos específicos para controles e legenda do gráfico */
 .chart-controls {

@@ -17,14 +17,11 @@ export default function Navigator({ }) {
         }
     };
 
-    // Função para extrair e formatar o nome do email
     const getUserDisplayName = (email: string | null | undefined): string => {
         if (!email) return 'Usuário';
         
         const namePart = email.split('@')[0];
         
-        // Capitalizar primeira letra e converter o resto para minúscula
-        // Também remove números e caracteres especiais comuns
         const cleanName = namePart
             .replace(/[._-]/g, ' ')
             .replace(/\d+/g, '')
@@ -39,7 +36,7 @@ export default function Navigator({ }) {
     return (
         <nav className={styles.navbar}>
             <div className={styles.navbarContainer}>
-                {/* Brand Section - Lado Esquerdo */}
+                {}
                 <div className={styles.navbarBrand}>
                     <div className={styles.brandIcon}>🏠</div>
                     <div className={styles.brandText}>
@@ -48,7 +45,7 @@ export default function Navigator({ }) {
                     </div>
                 </div>
 
-                {/* User Greeting Section - Centro */}
+                {}
                 {isAuthenticated && (
                     <div className={styles.userGreetingSection}>
                         <span className={styles.greetingText}>Olá,</span>
@@ -58,9 +55,9 @@ export default function Navigator({ }) {
                     </div>
                 )}
                 
-                {/* Navigation Section - Lado Direito */}
+                {}
                 <div className={styles.navbarNavigation}>
-                    {/* Botões de Navegação Principal */}
+                    {}
                     <a href="/Principal" className={`${styles.navButton} ${styles.navButtonPrimary}`}>
                         <span className={styles.navIcon}>🏡</span>
                         <span className={styles.navText}>Início</span>
@@ -79,7 +76,7 @@ export default function Navigator({ }) {
                         </>
                     )}
                     
-                    {/* Botão Externo */}
+                    {}
                     <a 
                         href="https://github.com/WeslleyMarcelo14/projeto_certificadora2" 
                         target="_blank" 
@@ -90,7 +87,7 @@ export default function Navigator({ }) {
                         <span className={styles.navText}>Código</span>
                     </a>
                     
-                    {/* Botão de Auth */}
+                    {}
                     {isAuthenticated ? (
                         <button 
                             onClick={handleLogout} 
