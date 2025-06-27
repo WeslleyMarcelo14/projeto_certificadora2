@@ -1,0 +1,393 @@
+/* Navigator Component Styles */
+/* Aplicando CSS Modules para melhor encapsulamento e manutenção */
+
+.navbar {
+  background: rgba(28, 28, 28, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(242, 201, 76, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 8px 0;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.navbarContainer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  min-height: 60px;
+  gap: 24px;
+}
+
+.navbarBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.navbarBrand:hover {
+  transform: scale(1.01);
+}
+
+.brandIcon {
+  font-size: 32px;
+  filter: drop-shadow(0 0 8px rgba(242, 201, 76, 0.4));
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.03); 
+  }
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.brandTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #F2C94C;
+  text-shadow: 0 0 12px rgba(242, 201, 76, 0.4);
+  letter-spacing: -0.3px;
+}
+
+.brandSubtitle {
+  font-size: 10px;
+  color: rgba(242, 201, 76, 0.75);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.navbarNavigation {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-self: end;
+  flex-shrink: 0;
+}
+
+.navButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(242, 201, 76, 0.15);
+  border-radius: 10px;
+  text-decoration: none !important;
+  color: #F2C94C !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  min-width: 50px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.navButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(242, 201, 76, 0.15), transparent);
+  transition: left 0.4s;
+}
+
+.navButton:hover::before {
+  left: 100%;
+}
+
+.navButton:hover {
+  transform: translateY(-2px);
+  background: rgba(242, 201, 76, 0.12);
+  border-color: rgba(242, 201, 76, 0.4);
+  box-shadow: 0 5px 18px rgba(242, 201, 76, 0.25);
+  color: #FFF !important;
+}
+
+.navButtonPrimary {
+  background: rgba(242, 201, 76, 0.15);
+  border-color: rgba(242, 201, 76, 0.3);
+  color: #FFF !important;
+}
+
+.navButtonExternal {
+  background: rgba(100, 100, 255, 0.12);
+  border-color: rgba(100, 100, 255, 0.25);
+  color: #6464FF !important;
+}
+
+.navButtonExternal:hover {
+  background: rgba(100, 100, 255, 0.2);
+  border-color: rgba(100, 100, 255, 0.5);
+  box-shadow: 0 5px 18px rgba(100, 100, 255, 0.25);
+}
+
+.navButtonLogin {
+  background: rgba(76, 175, 80, 0.12);
+  border-color: rgba(76, 175, 80, 0.25);
+  color: #4CAF50 !important;
+}
+
+.navButtonLogin:hover {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: rgba(76, 175, 80, 0.5);
+  box-shadow: 0 5px 18px rgba(76, 175, 80, 0.25);
+}
+
+.navButtonLogout {
+  background: rgba(244, 67, 54, 0.12);
+  border-color: rgba(244, 67, 54, 0.25);
+  color: #F44336 !important;
+}
+
+.navButtonLogout:hover {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: rgba(244, 67, 54, 0.5);
+  box-shadow: 0 5px 18px rgba(244, 67, 54, 0.25);
+}
+
+.navIcon {
+  font-size: 14px;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.navText {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.navUserSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 8px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.userGreeting {
+  font-size: 10px;
+  color: rgba(242, 201, 76, 0.7);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.navUserName {
+  font-size: 14px;
+  color: #F2C94C;
+  font-weight: 600;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 0 8px rgba(242, 201, 76, 0.3);
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+}
+
+/* User Greeting Section - Centralizado usando grid */
+.userGreetingSection {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 12px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  color: #F2C94C;
+  font-weight: 500;
+  text-shadow: 0 0 8px rgba(242, 201, 76, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.greetingText {
+  font-size: 14px;
+  color: rgba(242, 201, 76, 0.8);
+  font-weight: 400;
+  margin: 0;
+}
+
+.userName {
+  font-size: 14px;
+  color: #F2C94C;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(242, 201, 76, 0.3);
+  margin: 0;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+  .navbarContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 18px;
+    min-height: auto;
+  }
+  
+  .navbarBrand {
+    gap: 8px;
+    order: 1;
+  }
+  
+  .brandIcon {
+    font-size: 26px;
+  }
+  
+  .brandTitle {
+    font-size: 16px;
+  }
+  
+  .brandSubtitle {
+    font-size: 8px;
+  }
+
+  .userGreetingSection {
+    order: 2;
+    margin: 6px 0;
+    align-self: center;
+    padding: 5px 14px;
+  }
+
+  .greetingText {
+    font-size: 12px;
+  }
+
+  .userName {
+    font-size: 12px;
+    max-width: 120px;
+  }
+  
+  .navbarNavigation {
+    order: 3;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-self: center;
+  }
+  
+  .navButton {
+    padding: 5px 10px;
+    min-width: 45px;
+  }
+  
+  .navIcon {
+    font-size: 12px;
+  }
+  
+  .navText {
+    font-size: 7px;
+  }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 480px) {
+  .navbarContainer {
+    gap: 8px;
+    padding: 10px 16px;
+  }
+
+  .userGreetingSection {
+    margin: 4px 0;
+    gap: 4px;
+    padding: 4px 12px;
+  }
+
+  .greetingText {
+    font-size: 10px;
+  }
+
+  .userName {
+    font-size: 10px;
+    max-width: 100px;
+  }
+
+  .navbarNavigation {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    width: 100%;
+    justify-self: center;
+  }
+  
+  .navButton {
+    min-width: unset;
+    padding: 4px 6px;
+  }
+  
+  .navIcon {
+    font-size: 11px;
+  }
+  
+  .navText {
+    font-size: 6px;
+  }
+}
+
+/* Animações e transições aprimoradas */
+.navButton {
+  position: relative;
+  overflow: hidden;
+}
+
+.navButton:focus {
+  outline: 2px solid rgba(242, 201, 76, 0.5);
+  outline-offset: 2px;
+}
+
+.navButton:active {
+  transform: translateY(0);
+  transition-duration: 0.1s;
+}
+
+/* Melhorias de acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  .brandIcon {
+    animation: none;
+  }
+  
+  .navButton {
+    transition: none;
+  }
+  
+  .navButton::before {
+    transition: none;
+  }
+}
